@@ -37,3 +37,6 @@ gear-core = "1.9.1"
 
 [features]
 wasm-binary = []
+debug = ["gstd/debug"]
+std = []
+default = ["std"]
