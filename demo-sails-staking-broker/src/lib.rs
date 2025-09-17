@@ -28,4 +28,5 @@ pub use code::WASM_BINARY_OPT as WASM_BINARY;
 pub const WASM_BINARY: &[u8] = &[];
 
 #[cfg(not(feature = "std"))]
-pub mod wasm;
+// pub mod wasm;
+pub mod contract_app::wasm;
