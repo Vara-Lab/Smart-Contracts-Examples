@@ -20,7 +20,7 @@ fn main() {
 
     let mut idl_path = PathBuf::from(bin_path.clone());
     idl_path.set_extension("idl");
-    sails_idl_gen::generate_idl_to_file::<contract_app::ContractProgram>(idl_path.clone()).unwrap();
+    sails_idl_gen::generate_idl_to_file::<demo_sails_staking_broker_app::StakingBrokerProgram>(idl_path.clone()).unwrap();
 
     let mut contract_client = PathBuf::from(bin_path + "_client");
     contract_client.set_extension("rs");

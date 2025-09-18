@@ -9,26 +9,27 @@ members = ["client", "app"]
 
 
 [workspace.dependencies]
-gbuiltin-staking = "1.9.1"
-sails-rs = "0.9.1"
+sails-rs = { version = "0.9.1"}
 sails-idl-gen = "0.9.1"
 sails-client-gen = "0.9.1"
 gstd = "1.9.1"
+gbuiltin-staking = "1.9.1"
 tokio = { version = "1.41", features = ["rt", "macros"] }
+
 mockall = "0.13.1"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-contract-app = { path = "app" }
+demo-sails-staking-broker-app = { path = "app" }
 
 [build-dependencies]
-contract-app = { path = "app" }
+demo-sails-staking-broker-app = { path = "app" }
 sails-rs = { version = "0.9.1", features = ["wasm-builder"] }
 sails-idl-gen = "0.9.1"
 sails-client-gen = "0.9.1"
 
 [dev-dependencies]
 demo-sails-staking-broker = { path = ".", features = ["wasm-binary"] }
-contract-client = { path = "client" }
+demo-sails-staking-broker-client = { path = "client" }
 sails-rs = { version = "0.9.1", features = ["gtest", "gclient"] }
 tokio = { version = "1.41", features = ["rt", "macros"] }
 gstd = "1.9.1"
@@ -37,6 +38,4 @@ gear-core = "1.9.1"
 
 [features]
 wasm-binary = []
-debug = ["gstd/debug"]
 std = []
-default = ["std"]

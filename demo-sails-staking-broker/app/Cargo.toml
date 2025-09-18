@@ -1,12 +1,12 @@
 [package]
-name = "contract-app"
+name = "demo-sails-staking-broker-app"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 sails-rs.workspace = true
-gbuiltin-staking.workspace = true
 gstd.workspace = true
+gbuiltin-staking.workspace = true
 
 [dev-dependencies]
 sails-rs = { workspace = true, features = ["gstd", "std"] }

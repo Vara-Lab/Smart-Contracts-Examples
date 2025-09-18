@@ -3,6 +3,7 @@ use sails_rs::{
     cell::RefCell,
 };
 use gbuiltin_staking::*;
+use gstd::ext;
 
 use crate::state::StakingBroker;
 
@@ -61,7 +62,7 @@ impl ContractService<'_> {
         let user_value = Syscall::message_value();
 
         if value != user_value {
-            panic!("given value and tokens get must be equal!");
+            ("given value and tokens get must be equal!");
         }
 
         StakingBroker::bond(
@@ -80,7 +81,7 @@ impl ContractService<'_> {
         let user_value = Syscall::message_value();
 
         if value != user_value {
-            panic!("given value and tokens get must be equal!");
+            ext::panic("given value and tokens get must be equal!");
         }
 
         StakingBroker::bond(

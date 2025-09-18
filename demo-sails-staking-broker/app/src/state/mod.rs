@@ -6,6 +6,7 @@ use sails_rs::{
 };
 use gstd::{
     errors::Error, 
+    ext,
     actor_id
 };
 use gbuiltin_staking::*;
@@ -192,9 +193,9 @@ async fn do_send_message<E: Encode>(payload: E, mut on_success: impl FnMut()) {
             debug!("[StakingBroker] Error reply from builtin actor received: {e:?}");
             match e {
                 Error::ErrorReply(payload, _reason) => {
-                    panic!("{}", payload);
+                    ext::panic(format!("{payload:?}"))
                 }
-                _ => panic!("Error in upstream program"),
+                _ => ext::panic(String::from("Error in upstream program")),
             }
         }
     };

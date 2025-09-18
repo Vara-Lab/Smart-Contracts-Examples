@@ -1,32 +1,12 @@
-// #![no_std]
+#![cfg_attr(not(any(test, feature = "std")), no_std)]
 
-// #[cfg(target_arch = "wasm32")]
-// pub use contract_app::wasm::*;
-
-// #[cfg(feature = "wasm-binary")]
-// #[cfg(not(target_arch = "wasm32"))]
-// pub use code::WASM_BINARY_OPT as WASM_BINARY;
-
-// #[cfg(feature = "wasm-binary")]
-// #[cfg(not(target_arch = "wasm32"))]
-// mod code {
-//     include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
-// }
-
-
-#![cfg_attr(not(feature = "std"), no_std)]
-
-#[cfg(feature = "std")]
+#[cfg(all(not(target_arch = "wasm32"), any(feature = "wasm-binary", test)))]
 mod code {
     include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 }
 
-#[cfg(feature = "std")]
+#[cfg(all(not(target_arch = "wasm32"), any(feature = "wasm-binary", test)))]
 pub use code::WASM_BINARY_OPT as WASM_BINARY;
 
-#[cfg(not(feature = "std"))]
-pub const WASM_BINARY: &[u8] = &[];
-
-#[cfg(not(feature = "std"))]
-// pub mod wasm;
-pub mod contract_app::wasm;
+#[cfg(target_arch = "wasm32")]
+pub use demo_sails_staking_broker_app::wasm::*;
