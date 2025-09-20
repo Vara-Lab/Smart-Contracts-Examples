@@ -1,0 +1,61 @@
+/// An account where the rewards should accumulate on.
+/// 
+/// A "mirror" of the staking pallet's `RewardDestination` enum.
+type RewardAccount = enum {
+  /// Pay rewards to the sender's account and increase the amount at stake.
+  Staked,
+  /// Pay rewards to the sender's account (usually, the one derived from `program_id`)
+  /// without increasing the amount at stake.
+  Program,
+  /// Pay rewards to a custom account.
+  Custom: actor_id,
+  /// Opt for not receiving any rewards at all.
+  None,
+};
+
+type ContractResponse = enum {
+  BondedValue: u128,
+  BondedExtraValue: u128,
+  UnbondedValue: u128,
+  WithdrawUnbonded,
+  Nominated: vec actor_id,
+  Chill,
+  PayoutStakers: struct {
+    validator: actor_id,
+    era: u32,
+  },
+  RebondedValue: u128,
+  PayeeSet: RewardAccount,
+};
+
+constructor {
+  New : ();
+};
+
+service ContractService {
+  Bond : (value: u128, payee: RewardAccount) -> ContractResponse;
+  BondExtra : (value: u128) -> ContractResponse;
+  Chill : () -> ContractResponse;
+  Nominate : (targets: vec actor_id) -> ContractResponse;
+  PayoutStakers : (validator: actor_id, era: u32) -> ContractResponse;
+  Rebond : (value: u128) -> ContractResponse;
+  SetPayee : (payee: RewardAccount) -> ContractResponse;
+  Unbond : (value: u128) -> ContractResponse;
+  WithdrawUnbonded : () -> ContractResponse;
+
+  events {
+    BondedValue: u128;
+    BondedExtraValue: u128;
+    UnbondedValue: u128;
+    WithdrawUnbonded;
+    Nominated: vec actor_id;
+    Chill;
+    PayoutStakers: struct {
+      validator: actor_id,
+      era: u32,
+    };
+    RebondedValue: u128;
+    PayeeSet: RewardAccount;
+  }
+};
+

@@ -187,7 +187,7 @@ async fn do_send_message<E: Encode>(payload: E, mut on_success: impl FnMut()) {
         Ok(_) => {
             debug!("[StakingBroker] Success reply from builtin actor received");
             on_success();
-            msg::reply_bytes(b"Success", 0).expect("Failed to send reply");
+            // msg::reply_bytes(b"Success", 0).expect("Failed to send reply");
         }
         Err(e) => {
             debug!("[StakingBroker] Error reply from builtin actor received: {e:?}");

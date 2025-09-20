@@ -61,8 +61,8 @@ impl ContractService<'_> {
     pub async fn bond(&mut self, value: u128, payee: RewardAccount) -> ContractResponse {
         let user_value = Syscall::message_value();
 
-        if value != user_value {
-            ("given value and tokens get must be equal!");
+        if value > user_value {
+            ext::panic("Given value must be less or equal than given tokens in message!");
         }
 
         StakingBroker::bond(
@@ -80,8 +80,8 @@ impl ContractService<'_> {
     pub async fn bond_extra(&mut self, value: u128) -> ContractResponse {
         let user_value = Syscall::message_value();
 
-        if value != user_value {
-            ext::panic("given value and tokens get must be equal!");
+        if value > user_value {
+            ext::panic("Given value must be less or equal than given tokens in message!");
         }
 
         StakingBroker::bond(
@@ -109,8 +109,6 @@ impl ContractService<'_> {
 
     #[export]
     pub async fn withdraw_unbonded(&mut self) -> ContractResponse {
-        // [TODO]: checar esta parte
-
         StakingBroker::withdraw_unbonded(
             self.state.borrow()
         ).await;
