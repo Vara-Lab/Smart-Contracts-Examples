@@ -71,7 +71,8 @@ impl ContractService<'_> {
             Some(payee)
         ).await;
 
-        self.emit_event(ContractEvent::BondedValue(value)).unwrap();
+	// [TODO]: in tests comment this line for gas calculations
+        // self.emit_event(ContractEvent::BondedValue(value)).unwrap();
 
         ContractResponse::BondedValue(value)
     }
